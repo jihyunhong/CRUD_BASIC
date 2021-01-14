@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
 
@@ -61,7 +61,7 @@ def update_post(request, pk):
             post = form.save()
 
             return redirect('posts:detail', pk)
-        else:
-            form = PostForm(instance=post)
-            ctx = {'form': form}
-            return render(request, 'posts/post_form.html', ctx)
+    else:
+        form = PostForm(instance=post)
+        ctx = {'form': form}
+        return render(request, 'posts/post_form.html', ctx)
